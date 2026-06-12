@@ -4,13 +4,19 @@ import type { Standing } from '../types';
 import StandingTable from '../components/ui/StandingTable';
 import { TableSkeleton } from '../components/ui/LoadingSkeleton';
 import ErrorState from '../components/ui/ErrorState';
+import { mockStandings } from '../data/mockWorldCupData';
 
 const Standings = () => {
   const { data: standings, isLoading, error, refetch } = useQuery<Standing[]>({
     queryKey: ['standings'],
     queryFn: async () => {
-      const response = await api.get('/standings');
-      return response.data;
+      try {
+        const response = await api.get('/standings');
+        if (response.data && response.data.length > 0) return response.data;
+        return mockStandings;
+      } catch (err) {
+        return mockStandings;
+      }
     },
   });
 

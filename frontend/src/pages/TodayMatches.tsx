@@ -5,13 +5,19 @@ import type { Match } from '../types';
 import MatchCard from '../components/ui/MatchCard';
 import { CardSkeleton } from '../components/ui/LoadingSkeleton';
 import ErrorState from '../components/ui/ErrorState';
+import { mockMatches } from '../data/mockWorldCupData';
 
 const TodayMatches = () => {
   const { data: matches, isLoading, error, refetch } = useQuery<Match[]>({
     queryKey: ['todayMatches'],
     queryFn: async () => {
-      const response = await api.get('/matches/today');
-      return response.data;
+      try {
+        const response = await api.get('/matches/today');
+        if (response.data && response.data.length > 0) return response.data;
+        return mockMatches;
+      } catch (err) {
+        return mockMatches;
+      }
     },
     refetchInterval: 60000, // Refetch every minute to keep statuses updated
   });
