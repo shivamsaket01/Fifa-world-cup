@@ -2,6 +2,8 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { Link, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { Eye, EyeOff } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import api from '../services/api';
 
@@ -16,6 +18,7 @@ type SignupFormData = z.infer<typeof signupSchema>;
 const Signup = () => {
   const { login } = useAuth();
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
 
   const { register, handleSubmit, formState: { errors, isSubmitting }, setError } = useForm<SignupFormData>({
     resolver: zodResolver(signupSchema),
@@ -67,12 +70,21 @@ const Signup = () => {
 
           <div>
             <label className="block text-sm font-bold text-muted-foreground mb-1">Password</label>
-            <input 
-              type="password"
-              {...register('password')} 
-              className="w-full bg-background border-2 rounded-xl px-4 py-3 focus:outline-none focus:border-primary"
-              placeholder="&bull;&bull;&bull;&bull;&bull;&bull;"
-            />
+            <div className="relative">
+              <input 
+                type={showPassword ? "text" : "password"}
+                {...register('password')} 
+                className="w-full bg-background border-2 rounded-xl px-4 py-3 focus:outline-none focus:border-primary pr-12"
+                placeholder="&bull;&bull;&bull;&bull;&bull;&bull;"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+              >
+                {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+              </button>
+            </div>
             {errors.password && <p className="text-destructive text-xs mt-1">{errors.password.message}</p>}
           </div>
 
