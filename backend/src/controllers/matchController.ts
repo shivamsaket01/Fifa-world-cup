@@ -37,3 +37,20 @@ export const getMatchById = async (req: Request, res: Response) => {
     res.status(500).json({ message: 'Server Error' });
   }
 };
+
+export const getTodayMatches = async (req: Request, res: Response) => {
+  try {
+    const startOfDay = new Date();
+    startOfDay.setHours(0,0,0,0);
+    const endOfDay = new Date();
+    endOfDay.setHours(23,59,59,999);
+
+    const matches = await Match.find({
+      date: { $gte: startOfDay, $lte: endOfDay }
+    }).populate('homeTeam').populate('awayTeam').sort({ time: 1 });
+    
+    res.json(matches);
+  } catch (error) {
+    res.status(500).json({ message: 'Server Error' });
+  }
+};

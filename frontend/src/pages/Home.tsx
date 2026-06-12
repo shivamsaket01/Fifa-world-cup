@@ -1,7 +1,20 @@
+import { useQuery } from '@tanstack/react-query';
 import { ArrowRight, Activity } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import api from '../services/api';
+import type { Match } from '../types';
+import MatchCard from '../components/ui/MatchCard';
+import { CardSkeleton } from '../components/ui/LoadingSkeleton';
 
 const Home = () => {
+  const { data: todayMatches, isLoading } = useQuery<Match[]>({
+    queryKey: ['todayMatches'],
+    queryFn: async () => {
+      const response = await api.get('/matches/today');
+      return response.data;
+    },
+  });
+
   return (
     <div className="flex flex-col gap-12 pb-12">
       {/* Hero Section */}
@@ -27,44 +40,31 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Today's Matches Placeholder */}
+      {/* Today's Matches Section */}
       <section className="container mx-auto px-4">
         <div className="flex items-center justify-between mb-8">
           <h2 className="text-3xl font-bold">Today's Matches</h2>
-          <Link to="/live-scores" className="text-primary font-medium hover:underline flex items-center gap-1">
+          <Link to="/today" className="text-primary font-medium hover:underline flex items-center gap-1">
             View all <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {/* Mock Match Cards */}
-          {[1, 2, 3].map((match) => (
-            <div key={match} className="glass-card rounded-xl p-6">
-              <div className="flex justify-between items-center mb-4">
-                <span className="text-xs font-semibold bg-muted px-2 py-1 rounded text-muted-foreground">Group Stage</span>
-                <span className="text-xs font-bold text-destructive animate-pulse flex items-center gap-1">
-                  <span className="w-2 h-2 rounded-full bg-destructive inline-block"></span>
-                  LIVE 65'
-                </span>
-              </div>
-              <div className="flex justify-between items-center mb-6">
-                <div className="text-center flex-1">
-                  <div className="w-12 h-12 bg-muted rounded-full mx-auto mb-2 flex items-center justify-center font-bold text-lg">BRA</div>
-                  <span className="font-semibold">Brazil</span>
-                </div>
-                <div className="text-3xl font-black px-4 flex gap-3">
-                  <span>2</span>
-                  <span className="text-muted-foreground font-normal">-</span>
-                  <span>1</span>
-                </div>
-                <div className="text-center flex-1">
-                  <div className="w-12 h-12 bg-muted rounded-full mx-auto mb-2 flex items-center justify-center font-bold text-lg">ARG</div>
-                  <span className="font-semibold">Argentina</span>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
+        {isLoading ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[1, 2, 3].map((i) => <CardSkeleton key={i} />)}
+          </div>
+        ) : todayMatches && todayMatches.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {todayMatches.slice(0, 3).map((match) => (
+              <MatchCard key={match._id} match={match} />
+            ))}
+          </div>
+        ) : (
+          <div className="text-center p-12 glass-card rounded-xl">
+            <h3 className="text-xl font-semibold mb-2">No matches scheduled for today</h3>
+            <p className="text-muted-foreground">Check out the upcoming matches or play predictions!</p>
+          </div>
+        )}
       </section>
     </div>
   );

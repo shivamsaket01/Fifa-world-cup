@@ -120,3 +120,89 @@ async function calculatePointsForMatch(matchId: string, homeScore: number, awayS
     }
   }
 }
+
+export const syncDailyMatches = async () => {
+  if (!API_KEY) {
+    console.log('API_FOOTBALL_KEY is missing. Skipping daily sync.');
+    return;
+  }
+
+  try {
+    const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
+    
+    const response = await axios.get(`${BASE_URL}/fixtures?date=${today}`, {
+      headers: { 'x-apisports-key': API_KEY }
+    });
+
+    const fixtures = response.data.response || [];
+    const ALLOWED_LEAGUES = [39, 140, 135, 78, 61, 2, 3, 1]; // Top leagues + WC
+    
+    const filteredFixtures = fixtures.filter((f: any) => ALLOWED_LEAGUES.includes(f.league.id));
+    console.log(`Found ${filteredFixtures.length} matches for today in top leagues.`);
+
+    for (const apiMatch of filteredFixtures) {
+      // Upsert Home Team
+      let homeTeam = await Team.findOne({ name: apiMatch.teams.home.name });
+      if (!homeTeam) {
+        homeTeam = await Team.create({
+          name: apiMatch.teams.home.name,
+          logo: apiMatch.teams.home.logo,
+          group: apiMatch.league.name.substring(0, 3).toUpperCase()
+        });
+      }
+
+      // Upsert Away Team
+      let awayTeam = await Team.findOne({ name: apiMatch.teams.away.name });
+      if (!awayTeam) {
+        awayTeam = await Team.create({
+          name: apiMatch.teams.away.name,
+          logo: apiMatch.teams.away.logo,
+          group: apiMatch.league.name.substring(0, 3).toUpperCase()
+        });
+      }
+
+      // Check if match already exists for today
+      const matchDate = new Date(apiMatch.fixture.date);
+      // Start of day and end of day to match the date
+      const startOfDay = new Date(matchDate);
+      startOfDay.setHours(0,0,0,0);
+      const endOfDay = new Date(matchDate);
+      endOfDay.setHours(23,59,59,999);
+
+      let match = await Match.findOne({
+        homeTeam: homeTeam._id,
+        awayTeam: awayTeam._id,
+        date: { $gte: startOfDay, $lte: endOfDay }
+      });
+
+      const apiStatus = apiMatch.fixture.status.short;
+      let newStatus = 'NS';
+      if (['1H', '2H', 'ET', 'P'].includes(apiStatus)) newStatus = 'LIVE';
+      else if (apiStatus === 'HT') newStatus = 'HT';
+      else if (apiStatus === 'FT' || apiStatus === 'AET' || apiStatus === 'PEN') newStatus = 'FT';
+
+      if (!match) {
+        await Match.create({
+          homeTeam: homeTeam._id,
+          awayTeam: awayTeam._id,
+          date: matchDate,
+          time: apiMatch.fixture.status.elapsed ? `${apiMatch.fixture.status.elapsed}'` : '00:00',
+          group: apiMatch.league.name,
+          homeScore: apiMatch.goals.home ?? 0,
+          awayScore: apiMatch.goals.away ?? 0,
+          status: newStatus
+        });
+        console.log(`Created new match: ${homeTeam.name} vs ${awayTeam.name}`);
+      } else {
+        // Just update status and scores if it exists
+        match.homeScore = apiMatch.goals.home ?? 0;
+        match.awayScore = apiMatch.goals.away ?? 0;
+        match.status = newStatus as any;
+        match.time = apiMatch.fixture.status.elapsed ? `${apiMatch.fixture.status.elapsed}'` : match.time;
+        await match.save();
+      }
+    }
+  } catch (error) {
+    console.error('Failed to sync daily matches:', error);
+  }
+};

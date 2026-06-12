@@ -10,6 +10,7 @@ import Standings from './pages/Standings';
 import News from './pages/News';
 import Schedule from './pages/Schedule';
 import Predictions from './pages/Predictions';
+import TodayMatches from './pages/TodayMatches';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Profile from './pages/Profile';
@@ -46,6 +47,7 @@ function App() {
             }>
               <Route path="/" element={<Home />} />
               <Route path="/live-scores" element={<LiveScores />} />
+              <Route path="/today" element={<TodayMatches />} />
               <Route path="/schedule" element={<Schedule />} />
               <Route path="/predictions" element={<Predictions />} />
               <Route path="/matches/:id" element={<MatchDetails />} />
