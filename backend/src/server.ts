@@ -27,10 +27,7 @@ const port = process.env.PORT || 5000;
 // Security & Middleware
 app.use(helmet());
 app.use(cors({ 
-  origin: [
-    process.env.CLIENT_URL || 'http://localhost:5173',
-    'https://fifa-world-cup-orpin.vercel.app'
-  ], 
+  origin: true, 
   credentials: true 
 }));
 app.use(express.json());
