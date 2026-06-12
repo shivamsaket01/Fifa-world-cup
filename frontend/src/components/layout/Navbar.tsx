@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Trophy, LogOut, LayoutDashboard } from 'lucide-react';
+import { LogOut, LayoutDashboard } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 
 const Navbar = () => {
