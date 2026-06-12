@@ -17,6 +17,7 @@ import Signup from './pages/Signup';
 import Profile from './pages/Profile';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
+import SponsorsMarquee from './components/ui/SponsorsMarquee';
 import { ProtectedRoute } from './components/layout/ProtectedRoute';
 import { GlobalNotificationHandler } from './components/GlobalNotificationHandler';
 
@@ -45,6 +46,7 @@ function App() {
                 <main className="flex-1">
                   <Outlet />
                 </main>
+                <SponsorsMarquee />
                 <Footer />
               </div>
             }>

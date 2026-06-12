@@ -7,7 +7,7 @@ import MatchCard from '../components/ui/MatchCard';
 import { CardSkeleton } from '../components/ui/LoadingSkeleton';
 import { mockMatches } from '../data/mockWorldCupData';
 import AdBanner from '../components/ui/AdBanner';
-import SponsorsMarquee from '../components/ui/SponsorsMarquee';
+
 
 const Home = () => {
   const { data: todayMatches, isLoading } = useQuery<Match[]>({
@@ -48,7 +48,6 @@ const Home = () => {
         </div>
       </section>
 
-      <SponsorsMarquee />
 
       {/* Categories/Features */}
       <div className="container mx-auto px-4 mt-8 relative z-20">
