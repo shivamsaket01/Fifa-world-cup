@@ -26,8 +26,8 @@ const Home = () => {
   return (
     <div className="flex flex-col gap-12 pb-12">
       {/* Hero Section */}
-      <section className="relative bg-primary text-primary-foreground py-24 overflow-hidden">
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1518605368461-1ee71161dbce?q=80&w=2000&auto=format&fit=crop')] bg-cover bg-center opacity-20" />
+      <section className="relative bg-primary text-primary-foreground py-24 md:py-32 overflow-hidden">
+        <div className="absolute inset-0 bg-[url('/player-action.png')] bg-contain md:bg-cover bg-right bg-no-repeat opacity-40 mix-blend-multiply pointer-events-none" />
         <div className="container relative mx-auto px-4 text-center z-10">
           <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight mb-6 animate-in slide-in-from-bottom-4 fade-in duration-700">
             The Ultimate <br className="md:hidden" /> Football Experience
