@@ -39,7 +39,7 @@ const Home = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {/* Mock Match Cards */}
           {[1, 2, 3].map((match) => (
-            <div key={match} className="bg-card border rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
+            <div key={match} className="glass-card rounded-xl p-6">
               <div className="flex justify-between items-center mb-4">
                 <span className="text-xs font-semibold bg-muted px-2 py-1 rounded text-muted-foreground">Group Stage</span>
                 <span className="text-xs font-bold text-destructive animate-pulse flex items-center gap-1">

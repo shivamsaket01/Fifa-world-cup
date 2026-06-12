@@ -65,8 +65,8 @@ const Profile = () => {
           
           {/* Stats Card */}
           <div className="md:col-span-1 space-y-6">
-            <div className="bg-card border rounded-2xl p-6 text-center shadow-lg">
-              <div className="w-24 h-24 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4 border-4 border-background shadow-inner">
+            <div className="glass-card rounded-2xl p-6 text-center shadow-lg">
+              <div className="w-24 h-24 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4 border-4 border-background/20 shadow-inner">
                 <span className="text-4xl font-black text-primary">{user.name.charAt(0)}</span>
               </div>
               <h2 className="text-xl font-bold">{user.name}</h2>
@@ -82,7 +82,7 @@ const Profile = () => {
 
           {/* Details / Edit Form */}
           <div className="md:col-span-2">
-            <div className="bg-card border rounded-2xl p-8 shadow-lg">
+            <div className="glass-card rounded-2xl p-8 shadow-lg">
               <div className="flex justify-between items-center mb-6">
                 <h3 className="text-2xl font-bold">Profile Details</h3>
                 {!isEditing && (

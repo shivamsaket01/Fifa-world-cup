@@ -140,7 +140,7 @@ const Predictions = () => {
               upcomingMatches.map(match => {
                 const existingPred = myPredictions?.find((p: any) => p.match._id === match._id);
                 return (
-                  <div key={match._id} className="bg-card border rounded-2xl p-6 shadow-sm">
+                  <div key={match._id} className="glass-card rounded-2xl p-6">
                     <div className="text-center text-sm font-bold text-muted-foreground mb-4">
                       {new Date(match.date).toLocaleDateString()} • Group {match.group}
                     </div>
@@ -197,7 +197,7 @@ const Predictions = () => {
 
           {/* Leaderboard Section */}
           <div className="lg:col-span-1">
-            <div className="bg-card border rounded-2xl p-6 shadow-sm sticky top-24">
+            <div className="glass-card rounded-2xl p-6 sticky top-24">
               <h2 className="text-xl font-black flex items-center gap-2 mb-6">
                 <Trophy className="h-6 w-6 text-yellow-500" /> Global Leaderboard
               </h2>
@@ -232,7 +232,7 @@ const Predictions = () => {
 
       {activeTab === 'ai' && (
         <div className="max-w-4xl mx-auto">
-          <div className="bg-card border rounded-2xl p-6 md:p-10 shadow-sm mb-8">
+          <div className="glass-card rounded-2xl p-6 md:p-10 mb-8">
             <div className="grid grid-cols-1 md:grid-cols-[1fr,auto,1fr] gap-6 items-center">
               
               {/* Team A Selection */}
@@ -312,7 +312,7 @@ const Predictions = () => {
           )}
 
           {predictionMutation.isSuccess && predictionMutation.data && (
-            <div className="bg-card border-2 border-primary/20 rounded-2xl p-6 md:p-10 shadow-lg animate-in fade-in slide-in-from-bottom-8 duration-700">
+            <div className="glass-card rounded-2xl p-6 md:p-10 animate-in fade-in slide-in-from-bottom-8 duration-700">
               <h2 className="text-2xl font-black mb-8 text-center">Prediction Results</h2>
               
               <div className="flex flex-col md:flex-row gap-8 items-center justify-center mb-10">

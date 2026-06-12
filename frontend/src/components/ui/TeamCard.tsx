@@ -8,7 +8,7 @@ interface TeamCardProps {
 const TeamCard = ({ team }: TeamCardProps) => {
   return (
     <Link to={`/teams/${team._id}`} className="block">
-      <div className="bg-card border rounded-xl p-6 text-center shadow-sm hover:shadow-md transition-all hover:-translate-y-1 hover:border-primary/50 group">
+      <div className="glass-card rounded-xl p-6 text-center hover:-translate-y-1 group">
         <div className="w-24 h-24 mx-auto mb-4 rounded-full overflow-hidden border-4 border-muted group-hover:border-primary transition-colors">
           <img src={team.logo} alt={team.name} className="w-full h-full object-cover" />
         </div>

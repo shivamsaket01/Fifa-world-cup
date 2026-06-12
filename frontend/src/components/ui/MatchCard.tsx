@@ -10,7 +10,7 @@ const MatchCard = ({ match }: MatchCardProps) => {
 
   return (
     <Link to={`/matches/${match._id}`} className="block">
-      <div className="bg-card border rounded-xl p-6 shadow-sm hover:shadow-md transition-all hover:border-primary/50 group">
+      <div className="glass-card rounded-xl p-6 group">
         <div className="flex justify-between items-center mb-4">
           <span className="text-xs font-semibold bg-muted px-2 py-1 rounded text-muted-foreground">{match.group}</span>
           <span className={`text-xs font-bold flex items-center gap-1 ${isLive ? 'text-destructive animate-pulse' : 'text-muted-foreground'}`}>

@@ -8,6 +8,8 @@ import rateLimit from 'express-rate-limit';
 
 import connectDB from './config/db';
 import { initSocketServer } from './sockets/socketServer';
+import cron from 'node-cron';
+import { syncLiveMatches } from './services/footballApiService';
 
 import authRoutes from './routes/authRoutes';
 import adminRoutes from './routes/adminRoutes';
@@ -55,6 +57,11 @@ app.get('/', (req: Request, res: Response) => {
 
 // Initialize Socket.io
 initSocketServer(httpServer);
+
+// Start Automated Match Sync (Every 1 minute)
+cron.schedule('* * * * *', () => {
+  syncLiveMatches();
+});
 
 httpServer.listen(port, () => {
   console.log(`[server]: Server is running at http://localhost:${port}`);

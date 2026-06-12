@@ -6,7 +6,7 @@ const Navbar = () => {
   const { user, isAuthenticated, logout } = useAuth();
 
   return (
-    <nav className="border-b bg-card text-card-foreground">
+    <nav className="glass-nav">
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-2 text-xl font-bold text-primary">
           <img src="/logo.png" alt="Fifa World Cup 3.0" className="h-8 w-8 object-contain" />
@@ -44,7 +44,7 @@ const Navbar = () => {
           ) : (
             <>
               <Link to="/login" className="text-sm font-medium hover:text-primary transition-colors">Login</Link>
-              <Link to="/signup" className="text-sm font-medium bg-primary text-primary-foreground px-4 py-2 rounded-md hover:bg-primary/90 transition-colors">Sign Up</Link>
+              <Link to="/signup" className="text-sm font-medium glass-button px-4 py-2 rounded-md">Sign Up</Link>
             </>
           )}
         </div>
