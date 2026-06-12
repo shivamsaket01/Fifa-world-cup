@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import api from '../services/api';
-import type {} from '';
+import type { Team } from '../types';
 import TeamCard from '../components/ui/TeamCard';
 import { CardSkeleton } from '../components/ui/LoadingSkeleton';
 import ErrorState from '../components/ui/ErrorState';

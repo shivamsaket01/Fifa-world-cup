@@ -5,7 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { Edit, Trash2, Plus, X } from 'lucide-react';
 import api from '../../services/api';
-import type {} from '';
+import type { News } from '../../types';
 import ErrorState from '../../components/ui/ErrorState';
 
 const newsSchema = z.object({

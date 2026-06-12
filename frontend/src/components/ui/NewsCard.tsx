@@ -1,4 +1,4 @@
-import type {} from '';
+import type { News } from '../../types';
 
 interface NewsCardProps {
   news: News;

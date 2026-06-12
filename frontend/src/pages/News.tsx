@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import api from '../services/api';
-import type {} from '';
+import type { News as NewsType } from '../types';
 import NewsCard from '../components/ui/NewsCard';
 import { CardSkeleton } from '../components/ui/LoadingSkeleton';
 import ErrorState from '../components/ui/ErrorState';

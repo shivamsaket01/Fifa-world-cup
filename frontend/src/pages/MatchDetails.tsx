@@ -2,7 +2,7 @@ import { useParams, Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { ArrowLeft } from 'lucide-react';
 import api from '../services/api';
-import type {} from '';
+import type { Match } from '../types';
 import ScoreBoard from '../components/ui/ScoreBoard';
 import { CardSkeleton } from '../components/ui/LoadingSkeleton';
 import ErrorState from '../components/ui/ErrorState';

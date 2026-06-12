@@ -1,4 +1,4 @@
-import type {} from '';
+import type { Team } from '../../types';
 import { Link } from 'react-router-dom';
 
 interface TeamCardProps {

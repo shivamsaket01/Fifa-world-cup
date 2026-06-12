@@ -1,4 +1,4 @@
-import type {} from '';
+import type { Match } from '../../types';
 import { Link } from 'react-router-dom';
 
 interface MatchCardProps {

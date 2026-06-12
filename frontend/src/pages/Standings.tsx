@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import api from '../services/api';
-import type {} from '';
+import type { Standing } from '../types';
 import StandingTable from '../components/ui/StandingTable';
 import { TableSkeleton } from '../components/ui/LoadingSkeleton';
 import ErrorState from '../components/ui/ErrorState';
@@ -41,7 +41,7 @@ const Standings = () => {
         <div className="space-y-12">
           {groups.map((group) => {
             // Sort teams within group by points, then goal difference
-            const groupStandings = groupedStandings![group].sort((a, b) => {
+            const groupStandings = groupedStandings![group].sort((a: any, b: any) => {
               if (b.points !== a.points) return b.points - a.points;
               const gdA = a.goalsFor - a.goalsAgainst;
               const gdB = b.goalsFor - b.goalsAgainst;

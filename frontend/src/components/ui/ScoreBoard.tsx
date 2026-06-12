@@ -1,4 +1,4 @@
-import type {} from '';
+import type { Match } from '../../types';
 
 interface ScoreBoardProps {
   match: Match;

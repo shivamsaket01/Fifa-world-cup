@@ -1,4 +1,4 @@
-import type {} from '';
+import type { Standing } from '../../types';
 import { Link } from 'react-router-dom';
 
 interface StandingTableProps {
