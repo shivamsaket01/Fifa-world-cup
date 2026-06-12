@@ -1,8 +1,9 @@
 import express from 'express';
-import { getLiveMatches, getUpcomingMatches, getMatchById } from '../controllers/matchController';
+import { getLiveMatches, getUpcomingMatches, getMatchById, getAllMatches } from '../controllers/matchController';
 
 const router = express.Router();
 
+router.get('/', getAllMatches);
 router.get('/live', getLiveMatches);
 router.get('/upcoming', getUpcomingMatches);
 router.get('/:id', getMatchById);

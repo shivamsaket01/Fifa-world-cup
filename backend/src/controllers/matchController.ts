@@ -1,6 +1,15 @@
 import { Request, Response } from 'express';
 import Match from '../models/Match';
 
+export const getAllMatches = async (req: Request, res: Response) => {
+  try {
+    const matches = await Match.find().populate('homeTeam').populate('awayTeam').sort({ date: 1 });
+    res.json(matches);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching matches' });
+  }
+};
+
 export const getLiveMatches = async (req: Request, res: Response) => {
   try {
     const matches = await Match.find({ status: 'LIVE' }).populate('homeTeam').populate('awayTeam');
