@@ -2,10 +2,15 @@ import { Server } from 'socket.io';
 import { Server as HttpServer } from 'http';
 import { handleMatchEvents } from './matchEvents';
 
+let io: Server;
+
 export const initSocketServer = (server: HttpServer) => {
-  const io = new Server(server, {
+  io = new Server(server, {
     cors: {
-      origin: process.env.CLIENT_URL || 'http://localhost:5173',
+      origin: [
+        process.env.CLIENT_URL || 'http://localhost:5173',
+        'https://fifa-world-cup-orpin.vercel.app'
+      ],
       methods: ['GET', 'POST'],
       credentials: true,
     },
@@ -33,5 +38,12 @@ export const initSocketServer = (server: HttpServer) => {
     });
   });
 
+  return io;
+};
+
+export const getIO = () => {
+  if (!io) {
+    throw new Error('Socket.io not initialized!');
+  }
   return io;
 };

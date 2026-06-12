@@ -29,9 +29,9 @@ const Navbar = () => {
                 </Link>
               )}
               <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center font-bold text-primary border border-primary/30">
+                <Link to="/profile" className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center font-bold text-primary border border-primary/30 hover:bg-primary/30 transition-colors" title="My Profile">
                   {user?.name.charAt(0)}
-                </div>
+                </Link>
                 <button 
                   onClick={logout}
                   className="p-2 text-muted-foreground hover:text-destructive transition-colors"

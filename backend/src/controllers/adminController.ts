@@ -58,6 +58,71 @@ export const updateMatch = async (req: Request, res: Response) => {
   }
 };
 
+export const updateLiveMatch = async (req: Request, res: Response) => {
+  try {
+    const { homeScore, awayScore, time, status } = req.body;
+    const match = await Match.findByIdAndUpdate(
+      req.params.id,
+      { homeScore, awayScore, time, status },
+      { new: true }
+    ).populate('homeTeam').populate('awayTeam');
+
+    if (!match) {
+      return res.status(404).json({ message: 'Match not found' });
+    }
+
+    // Broadcast to all clients
+    import('../sockets/socketServer').then(({ getIO }) => {
+      try {
+        const io = getIO();
+        io.emit('match_update', match);
+      } catch (e) {
+        console.error('Socket not initialized yet');
+      }
+    });
+
+    // If match is finished, calculate prediction points
+    if (status === 'FT') {
+      const Prediction = require('../models/Prediction').default;
+      const User = require('../models/User').default;
+      
+      const predictions = await Prediction.find({ match: match._id, pointsAwarded: null });
+      
+      for (const pred of predictions) {
+        let points = 0;
+        
+        // Exact score: 3 points
+        if (pred.homeScore === homeScore && pred.awayScore === awayScore) {
+          points = 3;
+        } 
+        // Correct outcome (Home win, Away win, or Draw): 1 point
+        else {
+          const actualDiff = homeScore - awayScore;
+          const predictedDiff = pred.homeScore - pred.awayScore;
+          
+          if ((actualDiff > 0 && predictedDiff > 0) || 
+              (actualDiff < 0 && predictedDiff < 0) || 
+              (actualDiff === 0 && predictedDiff === 0)) {
+            points = 1;
+          }
+        }
+
+        // Update prediction and user
+        pred.pointsAwarded = points;
+        await pred.save();
+        
+        if (points > 0) {
+          await User.findByIdAndUpdate(pred.user, { $inc: { points: points } });
+        }
+      }
+    }
+
+    res.json(match);
+  } catch (error) {
+    res.status(400).json({ message: 'Failed to update live match' });
+  }
+};
+
 export const deleteMatch = async (req: Request, res: Response) => {
   try {
     await Match.findByIdAndDelete(req.params.id);

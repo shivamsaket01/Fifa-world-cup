@@ -101,7 +101,7 @@ export const refresh = async (req: Request, res: Response) => {
 export const getMe = async (req: Request, res: Response) => {
   try {
     // @ts-ignore - set by auth middleware
-    const user = await User.findById(req.user._id);
+    const user = await User.findById(req.user._id).populate('favoriteTeam');
     if (user) {
       res.json({
         _id: user._id,
@@ -109,11 +109,43 @@ export const getMe = async (req: Request, res: Response) => {
         email: user.email,
         role: user.role,
         avatar: user.avatar,
+        favoriteTeam: user.favoriteTeam,
+        points: user.points
       });
     } else {
       res.status(404).json({ message: 'User not found' });
     }
   } catch (error) {
     res.status(500).json({ message: 'Server error' });
+  }
+};
+
+export const updateProfile = async (req: Request, res: Response) => {
+  try {
+    // @ts-ignore
+    const user = await User.findById(req.user._id);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    user.name = req.body.name || user.name;
+    user.avatar = req.body.avatar || user.avatar;
+    if (req.body.favoriteTeam) {
+      user.favoriteTeam = req.body.favoriteTeam;
+    }
+
+    const updatedUser = await user.save();
+    
+    res.json({
+      _id: updatedUser._id,
+      name: updatedUser.name,
+      email: updatedUser.email,
+      role: updatedUser.role,
+      avatar: updatedUser.avatar,
+      favoriteTeam: updatedUser.favoriteTeam,
+      points: updatedUser.points
+    });
+  } catch (error) {
+    res.status(500).json({ message: 'Error updating profile' });
   }
 };

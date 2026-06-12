@@ -1,6 +1,6 @@
 import express from 'express';
 import { protect, admin } from '../middleware/authMiddleware';
-import { uploadFile, getAnalytics, createMatch, updateMatch, deleteMatch, getNews, createNews, updateNews, deleteNews } from '../controllers/adminController';
+import { uploadFile, getAnalytics, createMatch, updateMatch, deleteMatch, getNews, createNews, updateNews, deleteNews, updateLiveMatch } from '../controllers/adminController';
 
 const router = express.Router();
 
@@ -12,6 +12,7 @@ router.get('/analytics', getAnalytics);
 // Matches
 router.post('/matches', createMatch);
 router.put('/matches/:id', updateMatch);
+router.put('/matches/:id/live', updateLiveMatch);
 router.delete('/matches/:id', deleteMatch);
 
 // News

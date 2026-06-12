@@ -12,8 +12,10 @@ import Schedule from './pages/Schedule';
 import Predictions from './pages/Predictions';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
+import Profile from './pages/Profile';
 import Navbar from './components/layout/Navbar';
 import { ProtectedRoute } from './components/layout/ProtectedRoute';
+import { GlobalNotificationHandler } from './components/GlobalNotificationHandler';
 
 // Admin imports
 import AdminLayout from './layouts/AdminLayout';
@@ -30,6 +32,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
+        <GlobalNotificationHandler />
         <Router>
           <Routes>
             {/* Public/User Routes */}
@@ -52,6 +55,11 @@ function App() {
               <Route path="/news" element={<News />} />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
+              <Route path="/profile" element={
+                <ProtectedRoute>
+                  <Profile />
+                </ProtectedRoute>
+              } />
             </Route>
 
             {/* Admin Routes */}

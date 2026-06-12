@@ -7,6 +7,8 @@ interface User {
   email: string;
   role: 'user' | 'admin' | 'superadmin';
   avatar?: string;
+  favoriteTeam?: any; // any or Team type
+  points?: number;
 }
 
 interface AuthContextType {
