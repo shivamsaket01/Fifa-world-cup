@@ -7,6 +7,7 @@ import MatchDetails from './pages/MatchDetails';
 import Teams from './pages/Teams';
 import TeamDetails from './pages/TeamDetails';
 import Standings from './pages/Standings';
+import Premium from './pages/Premium';
 import News from './pages/News';
 import Schedule from './pages/Schedule';
 import Predictions from './pages/Predictions';
@@ -49,12 +50,13 @@ function App() {
               <Route path="/live-scores" element={<LiveScores />} />
               <Route path="/today" element={<TodayMatches />} />
               <Route path="/schedule" element={<Schedule />} />
-              <Route path="/predictions" element={<Predictions />} />
               <Route path="/matches/:id" element={<MatchDetails />} />
               <Route path="/teams" element={<Teams />} />
               <Route path="/teams/:id" element={<TeamDetails />} />
               <Route path="/standings" element={<Standings />} />
               <Route path="/news" element={<News />} />
+              <Route path="/premium" element={<Premium />} />
+              <Route path="/predictions" element={<Predictions />} />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
               <Route path="/profile" element={

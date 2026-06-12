@@ -9,6 +9,7 @@ interface User {
   avatar?: string;
   favoriteTeam?: any; // any or Team type
   points?: number;
+  isPremium?: boolean;
 }
 
 interface AuthContextType {
@@ -17,6 +18,7 @@ interface AuthContextType {
   isLoading: boolean;
   login: (userData: any) => Promise<any>;
   logout: () => Promise<void>;
+  updateUser: (userData: any) => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -52,7 +54,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   return (
-    <AuthContext.Provider value={{ user, isAuthenticated: !!user, isLoading, login, logout }}>
+    <AuthContext.Provider value={{ user, isAuthenticated: !!user, isLoading, login, logout, updateUser: setUser }}>
       {children}
     </AuthContext.Provider>
   );

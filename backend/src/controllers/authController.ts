@@ -33,6 +33,7 @@ export const register = async (req: Request, res: Response) => {
         email: user.email,
         role: user.role,
         avatar: user.avatar,
+        isPremium: user.isPremium,
       });
     } else {
       res.status(400).json({ message: 'Invalid user data' });
@@ -59,6 +60,7 @@ export const login = async (req: Request, res: Response) => {
         email: user.email,
         role: user.role,
         avatar: user.avatar,
+        isPremium: user.isPremium,
       });
     } else {
       res.status(401).json({ message: 'Invalid email or password' });
@@ -110,7 +112,8 @@ export const getMe = async (req: Request, res: Response) => {
         role: user.role,
         avatar: user.avatar,
         favoriteTeam: user.favoriteTeam,
-        points: user.points
+        points: user.points,
+        isPremium: user.isPremium
       });
     } else {
       res.status(404).json({ message: 'User not found' });
@@ -143,9 +146,37 @@ export const updateProfile = async (req: Request, res: Response) => {
       role: updatedUser.role,
       avatar: updatedUser.avatar,
       favoriteTeam: updatedUser.favoriteTeam,
-      points: updatedUser.points
+      points: updatedUser.points,
+      isPremium: updatedUser.isPremium
     });
   } catch (error) {
     res.status(500).json({ message: 'Error updating profile' });
+  }
+};
+
+// @desc    Upgrade to Premium
+// @route   POST /api/auth/upgrade
+// @access  Private
+export const upgradeUser = async (req: Request, res: Response) => {
+  try {
+    // @ts-ignore
+    const user = await User.findById(req.user._id);
+    if (!user) return res.status(404).json({ message: 'User not found' });
+
+    user.isPremium = true;
+    const updatedUser = await user.save();
+
+    res.json({
+      _id: updatedUser._id,
+      name: updatedUser.name,
+      email: updatedUser.email,
+      role: updatedUser.role,
+      avatar: updatedUser.avatar,
+      favoriteTeam: updatedUser.favoriteTeam,
+      points: updatedUser.points,
+      isPremium: updatedUser.isPremium
+    });
+  } catch (error) {
+    res.status(500).json({ message: 'Server Error' });
   }
 };

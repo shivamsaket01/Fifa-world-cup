@@ -8,6 +8,7 @@ export interface IUser extends Document {
   avatar?: string;
   favoriteTeam?: mongoose.Types.ObjectId;
   points: number;
+  isPremium: boolean;
   createdAt: Date;
 }
 
@@ -19,6 +20,7 @@ const UserSchema: Schema = new Schema({
   avatar: { type: String },
   favoriteTeam: { type: Schema.Types.ObjectId, ref: 'Team' },
   points: { type: Number, default: 0 },
+  isPremium: { type: Boolean, default: false },
 }, { timestamps: true });
 
 export default mongoose.model<IUser>('User', UserSchema);

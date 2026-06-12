@@ -8,6 +8,8 @@ import ScoreBoard from '../components/ui/ScoreBoard';
 import { CardSkeleton } from '../components/ui/LoadingSkeleton';
 import ErrorState from '../components/ui/ErrorState';
 import FootballPitch from '../components/ui/FootballPitch';
+import AdBanner from '../components/ui/AdBanner';
+import AffiliateShop from '../components/ui/AffiliateShop';
 import { mockMatches, mockHomeLineup, mockAwayLineup } from '../data/mockWorldCupData';
 
 const MatchDetails = () => {
@@ -51,6 +53,12 @@ const MatchDetails = () => {
               <li className="flex justify-between border-b pb-2"><span>Status</span> <span className="font-medium text-foreground">{match.status}</span></li>
               <li className="flex justify-between border-b pb-2"><span>Stage</span> <span className="font-medium text-foreground">{match.group}</span></li>
             </ul>
+          </div>
+          
+          <AffiliateShop teamName={match.homeTeam.name} />
+          
+          <div className="hidden lg:block">
+            <AdBanner format="rectangle" />
           </div>
         </div>
 

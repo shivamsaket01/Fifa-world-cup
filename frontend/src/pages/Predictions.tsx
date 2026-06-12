@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { Bot, Swords, Loader2, Trophy } from 'lucide-react';
+import { Bot, Swords, Loader2, Trophy, Crown, Lock } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import api from '../services/api';
 import type { Team, Match } from '../types';
 import { useAuth } from '../context/AuthContext';
@@ -18,7 +19,7 @@ interface PredictionResult {
 }
 
 const Predictions = () => {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, user } = useAuth();
   const queryClient = useQueryClient();
   const [activeTab, setActiveTab] = useState<'ai' | 'play'>('play');
   const [teamAId, setTeamAId] = useState<string>('');
@@ -231,8 +232,23 @@ const Predictions = () => {
       )}
 
       {activeTab === 'ai' && (
-        <div className="max-w-4xl mx-auto">
-          <div className="glass-card rounded-2xl p-6 md:p-10 mb-8">
+        <div className="max-w-4xl mx-auto relative">
+          {!user?.isPremium && (
+            <div className="absolute inset-0 z-10 bg-background/80 backdrop-blur-md rounded-2xl flex flex-col items-center justify-center text-center p-6 border border-primary/20">
+              <Lock className="h-12 w-12 text-muted-foreground mb-4" />
+              <h3 className="text-2xl font-bold mb-2 flex items-center gap-2">
+                <Crown className="h-6 w-6 text-yellow-500" /> Pro Feature
+              </h3>
+              <p className="text-muted-foreground max-w-md mx-auto mb-6">
+                Unlock Gemini-powered AI Match Predictions, Win Probabilities, and Advanced Tactical Analysis by upgrading to GoalZone Pro.
+              </p>
+              <Link to="/premium" className="bg-gradient-to-r from-yellow-500 to-amber-600 hover:from-yellow-400 hover:to-amber-500 text-white px-8 py-3 rounded-full font-bold shadow-lg transition-transform hover:scale-105">
+                Upgrade to Pro
+              </Link>
+            </div>
+          )}
+
+          <div className="glass-card rounded-2xl p-6 md:p-10 mb-8 opacity-100">
             <div className="grid grid-cols-1 md:grid-cols-[1fr,auto,1fr] gap-6 items-center">
               
               {/* Team A Selection */}

@@ -6,6 +6,7 @@ import type { Match } from '../types';
 import MatchCard from '../components/ui/MatchCard';
 import { CardSkeleton } from '../components/ui/LoadingSkeleton';
 import { mockMatches } from '../data/mockWorldCupData';
+import AdBanner from '../components/ui/AdBanner';
 
 const Home = () => {
   const { data: todayMatches, isLoading } = useQuery<Match[]>({
@@ -45,6 +46,10 @@ const Home = () => {
           </div>
         </div>
       </section>
+
+      <div className="container mx-auto px-4 mt-[-2rem] relative z-20">
+        <AdBanner format="horizontal" />
+      </div>
 
       {/* Today's Matches Section */}
       <section className="container mx-auto px-4">

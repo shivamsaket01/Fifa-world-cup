@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { LogOut, LayoutDashboard } from 'lucide-react';
+import { LogOut, Crown, LayoutDashboard } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 
 const Navbar = () => {
@@ -21,6 +21,13 @@ const Navbar = () => {
           <Link to="/predictions" className="hover:text-primary transition-colors">Predictions</Link>
         </div>
         <div className="flex items-center gap-4">
+          <div className="hidden md:flex items-center gap-4">
+            {isAuthenticated && !user?.isPremium && (
+              <Link to="/premium" className="flex items-center gap-1 text-sm font-bold bg-gradient-to-r from-yellow-500 to-amber-600 text-white px-3 py-1.5 rounded-full hover:scale-105 transition-transform shadow-md">
+                <Crown className="h-4 w-4" /> Pro
+              </Link>
+            )}
+          </div>
           {isAuthenticated ? (
             <>
               {(user?.role === 'admin' || user?.role === 'superadmin') && (
