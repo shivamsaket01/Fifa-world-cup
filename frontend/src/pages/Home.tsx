@@ -7,6 +7,7 @@ import MatchCard from '../components/ui/MatchCard';
 import { CardSkeleton } from '../components/ui/LoadingSkeleton';
 import { mockMatches } from '../data/mockWorldCupData';
 import AdBanner from '../components/ui/AdBanner';
+import PreviousHighlights from '../components/ui/PreviousHighlights';
 
 
 const Home = () => {
@@ -80,6 +81,9 @@ const Home = () => {
           </div>
         )}
       </section>
+
+      {/* Previous Match Highlights */}
+      <PreviousHighlights />
     </div>
   );
 };
