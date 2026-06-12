@@ -47,7 +47,7 @@ app.use('/api/news', newsRoutes);
 app.use('/api/predictions', predictionRoutes);
 
 app.get('/', (req: Request, res: Response) => {
-  res.send('GoalZone Backend API is running');
+  res.send('Fifa World Cup 3.0 Backend API is running');
 });
 
 // Initialize Socket.io
