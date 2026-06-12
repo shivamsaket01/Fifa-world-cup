@@ -11,9 +11,9 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'masked-icon.svg'],
       manifest: {
-        name: 'GoalZone Live Scores',
-        short_name: 'GoalZone',
-        description: 'Real-time FIFA World Cup scores and predictions',
+        name: 'Fifa World Cup 3.0',
+        short_name: 'Fifa3.0',
+        description: 'Real-time FIFA World Cup scores, stats, and news.',
         theme_color: '#ffffff',
         icons: [
           {

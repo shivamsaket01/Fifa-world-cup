@@ -22,6 +22,7 @@ import AdminNews from './pages/dashboard/AdminNews';
 import AdminMatches from './pages/dashboard/AdminMatches';
 import AdminTeams from './pages/dashboard/AdminTeams';
 import AdminUsers from './pages/dashboard/AdminUsers';
+import AdminSettings from './pages/dashboard/AdminSettings';
 
 const queryClient = new QueryClient();
 
@@ -64,6 +65,7 @@ function App() {
               <Route path="matches" element={<AdminMatches />} />
               <Route path="teams" element={<AdminTeams />} />
               <Route path="users" element={<AdminUsers />} />
+              <Route path="settings" element={<AdminSettings />} />
             </Route>
           </Routes>
         </Router>

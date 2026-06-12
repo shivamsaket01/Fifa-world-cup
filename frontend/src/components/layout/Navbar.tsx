@@ -9,8 +9,8 @@ const Navbar = () => {
     <nav className="border-b bg-card text-card-foreground">
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-2 text-xl font-bold text-primary">
-          <Trophy className="h-6 w-6" />
-          <span>GoalZone</span>
+          <img src="/logo.png" alt="Fifa World Cup 3.0" className="h-8 w-8 object-contain" />
+          <span>Fifa World Cup 3.0</span>
         </Link>
         <div className="hidden md:flex items-center gap-6 font-medium">
           <Link to="/" className="hover:text-primary transition-colors">Home</Link>

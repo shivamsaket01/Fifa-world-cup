@@ -21,8 +21,8 @@ const AdminLayout = () => {
       <aside className="w-64 bg-card border-r flex flex-col hidden md:flex sticky top-0 h-screen">
         <div className="h-16 flex items-center px-6 border-b">
           <Link to="/" className="text-xl font-bold text-primary flex items-center gap-2">
-            <Trophy className="h-6 w-6" />
-            <span>GoalZone Admin</span>
+            <img src="/logo.png" alt="Fifa World Cup 3.0" className="h-6 w-6 object-contain" />
+            <span>Fifa World Cup 3.0 Admin</span>
           </Link>
         </div>
         
@@ -72,7 +72,7 @@ const AdminLayout = () => {
         {/* Mobile Navbar */}
         <header className="h-16 bg-card border-b flex items-center justify-between px-4 md:hidden sticky top-0 z-10">
           <Link to="/" className="text-xl font-bold text-primary flex items-center gap-2">
-            <Trophy className="h-5 w-5" />
+            <img src="/logo.png" alt="Fifa World Cup 3.0" className="h-5 w-5 object-contain" />
             <span>Admin</span>
           </Link>
           <button className="p-2 -mr-2 text-muted-foreground hover:text-foreground">

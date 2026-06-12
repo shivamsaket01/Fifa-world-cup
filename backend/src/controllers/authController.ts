@@ -26,7 +26,7 @@ export const register = async (req: Request, res: Response) => {
     });
 
     if (user) {
-      generateTokens(res, user._id as string);
+      generateTokens(res, user._id.toString());
       res.status(201).json({
         _id: user._id,
         name: user.name,
@@ -52,7 +52,7 @@ export const login = async (req: Request, res: Response) => {
     const user = await User.findOne({ email }).select('+password');
 
     if (user && (await bcrypt.compare(password, user.password as string))) {
-      generateTokens(res, user._id as string);
+      generateTokens(res, user._id.toString());
       res.json({
         _id: user._id,
         name: user.name,

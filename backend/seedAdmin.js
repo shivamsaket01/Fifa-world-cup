@@ -3,7 +3,8 @@ const bcrypt = require('bcrypt');
 
 async function seed() {
   try {
-    await mongoose.connect('mongodb://localhost:27017/goalzone');
+    require('dotenv').config();
+    await mongoose.connect(process.env.MONGO_URI);
     const db = mongoose.connection.db;
     const users = db.collection('users');
     
